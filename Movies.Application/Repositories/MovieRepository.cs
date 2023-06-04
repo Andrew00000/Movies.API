@@ -17,6 +17,12 @@ namespace Movies.Application.Repositories
             return Task.FromResult(movie);
         }
 
+        Task<Movie?> IMovieRepository.GetBySlugAsync(string slug)
+        {
+            var movie = _movies.SingleOrDefault(x => x.Slug == slug);
+            return Task.FromResult(movie);
+        }
+
         Task<IEnumerable<Movie>> IMovieRepository.GetAllAsync()
         {
             return Task.FromResult(_movies.AsEnumerable());
