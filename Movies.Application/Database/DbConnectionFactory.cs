@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using Npgsql;
 using System.Data;
 
 namespace Movies.Application.Database
@@ -8,17 +9,17 @@ namespace Movies.Application.Database
         Task<IDbConnection> CreateConnectionAsync();
     }
 
-    public class SqlConnectionFactory : IDbConnectionFactory
+    public class NpgsqlConnectionFactory : IDbConnectionFactory
     {
         private readonly string _connectionString;
 
-        public SqlConnectionFactory(string connectionString)
+        public NpgsqlConnectionFactory(string connectionString)
         {
             _connectionString = connectionString;
         }
         public async Task<IDbConnection> CreateConnectionAsync()
         {
-            var connection = new SqlConnection(_connectionString);
+            var connection = new NpgsqlConnection(_connectionString);
             await connection.OpenAsync();
             return connection;
         }

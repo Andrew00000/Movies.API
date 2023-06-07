@@ -1,51 +1,72 @@
-﻿using Movies.Application.Models;
+﻿using Dapper;
+using Movies.Application.Database;
+using Movies.Application.Models;
 
 namespace Movies.Application.Repositories
 {
     public class MovieRepository : IMovieRepository
     {
-        private readonly List<Movie> _movies = new();
-        Task<bool> IMovieRepository.CreateAsync(Movie movie)
+        private readonly IDbConnectionFactory _dbConnectionFactory;
+
+        public MovieRepository(IDbConnectionFactory dbConnectionFactory)
         {
-            _movies.Add(movie);
-            return Task.FromResult(true);
+            _dbConnectionFactory = dbConnectionFactory;
+        }
+
+        async Task<bool> IMovieRepository.CreateAsync(Movie movie)
+        {
+            using var connection = await _dbConnectionFactory.CreateConnectionAsync();
+            using var transaction = connection.BeginTransaction();
+
+            var result = await connection.ExecuteAsync(new CommandDefinition("""
+                insert into movies (id, slug, title, yearofrelease)
+                values (@Id, @Slug, @Title, @YearOfRelease)
+                """, movie));
+
+            if (result > 0)
+            {
+                foreach( var genre in movie.Genres)
+                {
+                    await connection.ExecuteAsync(new CommandDefinition("""
+                        insert into genres (movieId, name)
+                        values (@MovieID, @Name)
+                        """, new { MovieId = movie.Id, Name = genre }));
+                }
+            }
+
+            transaction.Commit();
+
+            return result > 0;
         }
 
         Task<Movie?> IMovieRepository.GetByIDAsync(Guid id)
         {
-            var movie = _movies.SingleOrDefault(x => x.Id == id);
-            return Task.FromResult(movie);
+            throw new NotImplementedException();
         }
 
         Task<Movie?> IMovieRepository.GetBySlugAsync(string slug)
         {
-            var movie = _movies.SingleOrDefault(x => x.Slug == slug);
-            return Task.FromResult(movie);
+            throw new NotImplementedException();
         }
 
         Task<IEnumerable<Movie>> IMovieRepository.GetAllAsync()
         {
-            return Task.FromResult(_movies.AsEnumerable());
+            throw new NotImplementedException();
         }
 
         Task<bool> IMovieRepository.UpdateAsync(Movie movie)
         {
-            var movieIndex = _movies.FindIndex( x => x.Id == movie.Id );
-            if (movieIndex == -1)
-            {
-                return Task.FromResult(false);
-            }
-
-            _movies[movieIndex] = movie;
-            return Task.FromResult(true);
+            throw new NotImplementedException();
         }
 
         Task<bool> IMovieRepository.DeleteByIdAsync(Guid id)
         {
-            var removedCount = _movies.RemoveAll(x => x.Id == id);
-            var movieRemoved = removedCount > 0;
+            throw new NotImplementedException();
+        }
 
-            return Task.FromResult(movieRemoved);
+        public Task<bool> ExistsByIdAsync(Guid id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -15,15 +15,23 @@ namespace Movies.Application.Database
             using var connection = await _connectionFactory.CreateConnectionAsync();
 
             await connection.ExecuteAsync("""
-                IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'movies')
-                BEGIN
-                    CREATE TABLE movies (
-                        id UNIQUEIDENTIFIER PRIMARY KEY,
-                        slug VARCHAR(255) NOT NULL,
-                        title TEXT NOT NULL,
-                        yearofrelease INTEGER NOT NULL
-                    );
-                END
+                create table if not exists movies (
+                    id UUID primary key,
+                    slug TEXT not null,
+                    title TEXT not null,
+                    yearofrelease integer not null)
+            """);
+
+            await connection.ExecuteAsync("""
+                create unique index concurrently if not exists movies_slug_idx
+                    on movies
+                    using btree(slug);
+            """);
+
+            await connection.ExecuteAsync("""
+                create table if not exists genres (
+                movieId UUID references movies (Id),
+                name TEXT not null);
             """);
         }
     }
