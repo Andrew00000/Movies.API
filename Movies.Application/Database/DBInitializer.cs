@@ -30,8 +30,8 @@ namespace Movies.Application.Database
 
             await connection.ExecuteAsync("""
                 create table if not exists genres (
-                movieId UUID references movies (Id),
-                name TEXT not null);
+                    movieId UUID references movies (id),
+                    name TEXT not null);
             """);
         }
     }
