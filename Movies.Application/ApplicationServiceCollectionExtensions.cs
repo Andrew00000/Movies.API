@@ -1,4 +1,7 @@
-﻿using Movies.Application.Repositories;
+﻿using Microsoft.Data.SqlClient;
+using Movies.Application.Database;
+using Movies.Application.Repositories;
+using System.Runtime.CompilerServices;
 
 namespace Movies.Application
 {
@@ -7,6 +10,12 @@ namespace Movies.Application
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
             services.AddSingleton<IMovieRepository, MovieRepository>();
+            return services;
+        }
+        public static IServiceCollection AddDatabase(this IServiceCollection services, string connectionString)
+        {
+            services.AddSingleton<IDbConnectionFactory>(_ => new SqlConnectionFactory(connectionString));
+            services.AddSingleton<DBInitializer>();
             return services;
         }
     }
