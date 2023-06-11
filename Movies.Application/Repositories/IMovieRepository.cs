@@ -1,15 +1,16 @@
 ﻿using Movies.Application.Models;
+using System.Threading;
 
 namespace Movies.Application.Repositories
 {
     public interface IMovieRepository
     {
-        public Task<bool> CreateAsync(Movie movie);
-        Task<Movie?> GetByIDAsync(Guid id);
-        Task<Movie?> GetBySlugAsync(string slug);
-        Task<IEnumerable<Movie>> GetAllAsync();
-        Task<bool> UpdateAsync(Movie movie);
-        Task<bool> DeleteByIdAsync(Guid id);
-        Task<bool> ExistsByIdAsync(Guid id);
+        public Task<bool> CreateAsync(Movie movie, CancellationToken token);
+        public Task<Movie?> GetByIDAsync(Guid id, CancellationToken token);
+        public Task<Movie?> GetBySlugAsync(string slug, CancellationToken token);
+        public Task<IEnumerable<Movie>> GetAllAsync(CancellationToken token);
+        public Task<bool> UpdateAsync(Movie movie, CancellationToken token);
+        public Task<bool> DeleteByIdAsync(Guid id, CancellationToken token);
+        public Task<bool> ExistsByIdAsync(Guid id, CancellationToken token);
     }
 }
