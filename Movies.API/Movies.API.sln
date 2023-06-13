@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Movies.API", "Movies.API.csproj", "{C8A6DF5E-4777-4C43-AB85-50DA36308DFD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Movies.API", "Movies.API.csproj", "{C8A6DF5E-4777-4C43-AB85-50DA36308DFD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Movies.Application", "..\Movies.Application\Movies.Application.csproj", "{EC6035FC-A126-4694-9D9B-2E72A87FE88C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Movies.Application", "..\Movies.Application\Movies.Application.csproj", "{EC6035FC-A126-4694-9D9B-2E72A87FE88C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Movies.Contracts", "..\Movies.Contracts\Movies.Contracts.csproj", "{44E2CDA9-A97F-4881-92FA-AEC700FA1F7D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Movies.Contracts", "..\Movies.Contracts\Movies.Contracts.csproj", "{44E2CDA9-A97F-4881-92FA-AEC700FA1F7D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Identity.Api", "..\Helpers\Identity.Api\Identity.Api.csproj", "{10F43556-CE8A-4F04-87B4-C808EC92C8BC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{44E2CDA9-A97F-4881-92FA-AEC700FA1F7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44E2CDA9-A97F-4881-92FA-AEC700FA1F7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44E2CDA9-A97F-4881-92FA-AEC700FA1F7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10F43556-CE8A-4F04-87B4-C808EC92C8BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10F43556-CE8A-4F04-87B4-C808EC92C8BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10F43556-CE8A-4F04-87B4-C808EC92C8BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10F43556-CE8A-4F04-87B4-C808EC92C8BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
